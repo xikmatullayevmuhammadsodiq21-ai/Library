@@ -119,6 +119,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/home/LibraX/Library/media'
+
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
