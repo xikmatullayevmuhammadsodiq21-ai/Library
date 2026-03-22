@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-)e!xvw)4=uv7e7h-x_uci1+b4m7_ap$j+*fir8g16l5z3a7l*o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['LibraX.pythonanywhere.com']
+ALLOWED_HOSTS = ['LibraX.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -120,7 +121,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/LibraX/Library/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STATICFILES_DIRS = [

@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Book
 from django.shortcuts import get_object_or_404
 import requests
+from django.core.files.base import ContentFile
+from .models import Book
+
 # Create your views here.
 
 
@@ -21,22 +24,27 @@ def book_list(request):
     
 
 
-from .models import Book
+
 
 def create_book(request):
     if request.method == "POST":
         title = request.POST.get("title")
         author = request.POST.get("author")
         is_active = request.POST.get("is_active") == "on"
-        image_url = fetch_book_cover(title)
 
-        Book.objects.create(
+        # ✅ create book first
+        book = Book.objects.create(
             title=title,
             author=author,
             is_active=is_active,
-            user=request.user,  
-            image_url=image_url
+            user=request.user
         )
+
+        # ✅ now book exists → safe to use
+        image_file = fetch_book_image(title)
+
+        if image_file:
+            book.image.save(f"{title}.jpg", image_file, save=True)
 
         return redirect("book_list")
 
@@ -49,18 +57,14 @@ def delete_book(request, pk):
     return redirect('book_list')
 
 
-def fetch_book_cover(title):
-    url = f"https://www.googleapis.com/books/v1/volumes?q=intitle:{title}"
+def fetch_book_image(title):
+    url = f"https://www.googleapis.com/books/v1/volumes?q={title}"
+    response = requests.get(url)
+    data = response.json()
 
     try:
-        response = requests.get(url)
-        data = response.json()
-
-        if "items" in data:
-            book = data["items"][0]
-            image = book["volumeInfo"].get("imageLinks", {}).get("thumbnail")
-            return image
+        img_url = data['items'][0]['volumeInfo']['imageLinks']['thumbnail']
+        img_response = requests.get(img_url)
+        return ContentFile(img_response.content)
     except:
-        pass
-
-    return None
+        return None
