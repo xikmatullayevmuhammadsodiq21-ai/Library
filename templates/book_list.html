@@ -57,7 +57,7 @@
 
                             <thead>
                                 <tr class="bg-slate-50 border-b">
-                                    <th class="px-6 py-4 text-xs font-semibold uppercase">Book Name</th>
+                                    <th class="px-6 py-4 text-xs font-semibold uppercase">Book</th>
                                     <th class="px-6 py-4 text-xs font-semibold uppercase">Author</th>
                                     <th class="px-6 py-4 text-xs font-semibold uppercase">Status</th>
                                     <th class="px-6 py-4 text-xs font-semibold uppercase text-right">Actions</th>
@@ -70,10 +70,20 @@
 
                                 <tr class="hover:bg-slate-50">
 
+                                    <!-- BOOK COLUMN -->
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-14 bg-slate-200 rounded"></div>
 
+                                            <!-- ✅ COVER IMAGE -->
+                                            {% if book.image_url %}
+                                            <img src="{{ book.image_url }}"
+                                                class="w-10 h-14 object-cover rounded shadow-sm" />
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/80x120?text=No+Cover"
+                                                class="w-10 h-14 object-cover rounded" />
+                                            {% endif %}
+
+                                            <!-- BOOK INFO -->
                                             <div>
                                                 <div class="text-sm font-bold">
                                                     {{ book.title }}
@@ -82,13 +92,16 @@
                                                     ID: {{ book.id }}
                                                 </div>
                                             </div>
+
                                         </div>
                                     </td>
 
+                                    <!-- AUTHOR -->
                                     <td class="px-6 py-4 text-sm">
                                         {{ book.author }}
                                     </td>
 
+                                    <!-- STATUS -->
                                     <td class="px-6 py-4">
                                         <span
                                             class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-emerald-100 text-emerald-800">
@@ -96,6 +109,7 @@
                                         </span>
                                     </td>
 
+                                    <!-- ACTIONS -->
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex justify-end gap-2">
 
@@ -112,7 +126,7 @@
                                             </a>
 
                                             <!-- Delete Button -->
-                                            <a href="#">
+                                            <a href="{% url 'delete_book' book.id %}">
                                                 <button class="p-2 text-red-600 hover:bg-red-50 rounded">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
@@ -124,35 +138,31 @@
                                             </a>
 
                                         </div>
+                                    </td>
 
+                                </tr>
 
+                                {% empty %}
+
+                                <tr>
+                                    <td colspan="4" class="text-center py-6 text-slate-500">
+                                        No books found
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
 
                     </div>
-                    </td>
-
-                    </tr>
-
-                    {% empty %}
-
-                    <tr>
-                        <td colspan="4" class="text-center py-6 text-slate-500">
-                            No books found
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                    </tbody>
-
-                    </table>
 
                 </div>
 
             </div>
 
-    </div>
-
-    </main>
+        </main>
 
     </div>
 
