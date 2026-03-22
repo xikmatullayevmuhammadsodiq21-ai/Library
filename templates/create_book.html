@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Book - Book Management System</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #4f46e5;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #4f46e5;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen font-sans text-gray-900">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <span class="text-2xl font-bold text-indigo-600">LibriTrack</span>
+
+                <div class="hidden sm:flex sm:space-x-8">
+                    <a href="{% url 'book_list' %}" class="text-gray-500 hover:text-gray-700">Dashboard</a>
+                    <a href="{% url 'book_list' %}" class="text-gray-900 border-b-2 border-indigo-500">Books</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700">Authors</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+
+        <!-- BREADCRUMBS -->
+        <nav class="flex mb-8">
+            <ol class="flex items-center space-x-4">
+                <li>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'book_list' %}" class="text-gray-500">Books</a>
+                </li>
+                <li class="text-indigo-600">Create</li>
+            </ol>
+        </nav>
+
+        <!-- HEADER -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold">Add New Book</h2>
+            <p class="text-gray-500">Enter book details below</p>
+        </div>
+
+        <!-- FORM -->
+        <section class="bg-white shadow-sm rounded-xl">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="p-8 grid gap-6">
+
+                    <!-- BOOK NAME -->
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Book Name</label>
+                        <input name="title" type="text" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="e.g. The Great Gatsby">
+                    </div>
+
+                    <!-- AUTHOR -->
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Author Name</label>
+                        <input name="author" type="text" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="e.g. F. Scott Fitzgerald">
+                    </div>
+
+                    <!-- TOGGLE -->
+                    <div class="flex items-center justify-between">
+                        <span>
+                            <span class="text-sm font-medium">Is Active</span>
+                            <p class="text-sm text-gray-500">Available for checkout</p>
+                        </span>
+
+                        <div class="relative inline-block w-12">
+                            <input type="checkbox" name="is_active"
+                                class="toggle-checkbox absolute w-6 h-6 rounded-full bg-white border-4 cursor-pointer">
+                            <label class="toggle-label block h-6 rounded-full bg-gray-300"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="flex justify-end gap-6 p-6 border-t bg-gray-50 rounded-b-xl">
+
+                    <!-- FIXED: no button inside <a> -->
+                    <a href="{% url 'book_list' %}" class="text-sm font-semibold text-gray-900 hover:text-gray-700">
+                        Cancel
+                    </a>
+
+                    <!-- FIXED: proper submit -->
+                    <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-500">
+                        Save Book
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
