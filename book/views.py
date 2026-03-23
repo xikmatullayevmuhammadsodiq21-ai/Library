@@ -32,7 +32,7 @@ def create_book(request):
         author = request.POST.get("author")
         is_active = request.POST.get("is_active") == "on"
 
-        # ✅ create book first
+       
         book = Book.objects.create(
             title=title,
             author=author,
@@ -40,7 +40,7 @@ def create_book(request):
             user=request.user
         )
 
-        # ✅ now book exists → safe to use
+      
         image_file = fetch_book_image(title)
 
         if image_file:

@@ -33,8 +33,7 @@ def register_view(request):
         if password != confirm_password:
             return render(request, "register.html", {"error": "Parollar mos emas ❌"})
 
-        if User.objects.filter(username=username).exists():
-            return render(request, "register.html", {"error": "Username band ❌"})
+
 
         user = User.objects.create_user(
             username=username,
