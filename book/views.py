@@ -41,7 +41,8 @@ def create_book(request):
         )
 
       
-        image_file = fetch_book_image(title)
+        image_file = fetch_book_image(title, author)
+        # image_file = fetch_book_image(author),
 
         if image_file:
             book.image.save(f"{title}.jpg", image_file, save=True)
