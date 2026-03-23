@@ -64,14 +64,14 @@
         <section class="bg-white shadow-sm rounded-xl">
 
             <form method="POST">
-                {% csrf_token %}
+            {% csrf_token %}
 
                 <div class="p-8 grid gap-6">
 
                     <!-- BOOK NAME -->
                     <div>
                         <label class="block text-sm font-medium mb-1">Book Name</label>
-                        <input name="title" type="text" required
+                        <input name="title" type="text" required value="{{ book.title }}"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="e.g. The Great Gatsby">
                     </div>
@@ -79,7 +79,7 @@
                     <!-- AUTHOR -->
                     <div>
                         <label class="block text-sm font-medium mb-1">Author Name</label>
-                        <input name="author" type="text" required
+                        <input name="author" type="text" required value="{{ book.author }}"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="e.g. F. Scott Fitzgerald">
                     </div>
